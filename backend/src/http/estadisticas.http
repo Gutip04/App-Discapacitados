@@ -1,0 +1,50 @@
+### Total sexo
+GET http://localhost:3000/api/estadisticas/sexo
+
+### Total zona
+GET http://localhost:3000/api/estadisticas/zona
+
+### Total zona-sexo
+GET http://localhost:3000/api/estadisticas/zona-sexo
+
+### Total estado de vida
+GET http://localhost:3000/api/estadisticas/estado-vida
+
+### Total estado de vida y sexo
+GET http://localhost:3000/api/estadisticas/estado-vida-sexo
+
+### Total discapacidad 
+GET http://localhost:3000/api/estadisticas/discapacidad
+
+### Total discapacidad y sexo
+GET http://localhost:3000/api/estadisticas/discapacidad-sexo
+
+### total victima 
+GET http://localhost:3000/api/estadisticas/victima
+
+### total victima y sexo
+GET http://localhost:3000/api/estadisticas/victima-sexo
+
+### total grado de estudio
+GET http://localhost:3000/api/estadisticas/grado-estudio
+
+### total grado de estudio y sexo
+GET http://localhost:3000/api/estadisticas/grado-estudio-sexo
+
+### total grado de estudio 
+GET http://localhost:3000/api/estadisticas/grado-estudio
+
+###  total eps
+GET http://localhost:3000/api/estadisticas/eps
+
+### total grado de estudio 
+GET http://localhost:3000/api/estadisticas/grupoetnico
+
+###  total ciclodevida
+GET http://localhost:3000/api/estadisticas/ciclodevida
+
+###  total general
+GET http://localhost:3000/api/estadisticas/general
+
+
+

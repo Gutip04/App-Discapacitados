@@ -1,0 +1,25 @@
+### Listar barrios filtrados
+GET http://localhost:3000/api/eps/filtrados?nombre=t&page=1&limit=10
+
+
+### Obtener todos las eps
+GET http://localhost:3000/api/eps
+
+### Crear una eps
+POST http://localhost:3000/api/eps
+Content-Type: application/json
+
+{
+  "nombre": "Nueva eps 3"
+}
+
+### Editar una eps (por ID)
+PUT http://localhost:3000/api/eps/5
+Content-Type: application/json
+
+{
+  "nombre": "eps completada "
+}
+
+### Eliminar una eps (por ID)
+DELETE http://localhost:3000/api/eps/5

@@ -1,0 +1,11 @@
+### tipo discapacidad
+GET http://localhost:3000/api/tablas/tipoDiscapacidad
+
+###  grupo etnico
+GET http://localhost:3000/api/tablas/grupoEtnico
+
+### victima
+GET http://localhost:3000/api/tablas/victimas
+
+### gradoEstudio
+GET http://localhost:3000/api/tablas/gradoEstudio

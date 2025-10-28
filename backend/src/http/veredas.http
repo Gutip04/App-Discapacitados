@@ -1,0 +1,30 @@
+### Listar veredas filtrados
+GET http://localhost:3000/api/veredas/filtrados?nombre=c&page=1&limit=10
+
+### Obtener todos las veredas
+GET http://localhost:3000/api/veredas
+
+### obtenr veredas por id
+GET http://localhost:3000/api/veredas/2
+
+
+### Crear una vereda
+POST http://localhost:3000/api/veredas
+Content-Type: application/json
+
+{
+  "nombre": "Palagua",
+  "zona_id": 2
+}
+
+### Editar un vereda (por ID)
+PUT http://localhost:3000/api/veredas/1
+Content-Type: application/json
+
+{
+  "nombre": "Ninguno",
+  "zona_id": 2
+}
+
+### Eliminar un barrio (por ID)
+DELETE http://localhost:3000/api/veredas/9

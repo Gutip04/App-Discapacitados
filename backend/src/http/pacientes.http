@@ -1,0 +1,94 @@
+@tokenUsuario = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbmRyZXNAZW1haWwuY29tIiwicm9sIjoidXN1YXJpbyIsImlhdCI6MTc2MDQ1MDUwMCwiZXhwIjoxNzYwNDU0MTAwfQ.ugPuOIzMHBJhKkF4XpPfenCQg_JlebyJWT53h6bk6uc
+@tokenAdmin = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbmRyZXNmQGVtYWlsLmNvbSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzYwNDgxNDk4LCJleHAiOjE3NjA0ODUwOTh9.8HGNB4FvBxf558vD2WXB_p4NRGefzZaG3r_0lN3QqsQ
+
+### Obtener todos los pacientes con edad y ciclo de vida
+GET http://localhost:3000/api/pacientes
+# Authorization: Bearer {{tokenAdmin}}
+
+### Obtener paciente por identificacion
+GET http://localhost:3000/api/pacientes/1234567890
+
+### Obtener paciente por nombreyApellido
+GET http://localhost:3000/api/pacientes/filtrados?nombres_apellidos=emi
+
+### pacientes filtrados nombre
+GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&nombres_apellidos=emilio
+
+### pacientes filtrados 
+GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&estado_vida_id=2
+
+### pacientes filtrados nombre, eps
+GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&nombres_apellidos=juan&eps_id=3
+
+### pacientes filtrados nombre,eps,zona
+GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&nombres_apellidos=juan&eps_id=3&zona_id=2
+
+
+### Crear un paciente
+POST http://localhost:3000/api/pacientes
+Content-Type: application/json
+
+{
+  "estado_vida_id": 1,
+  "fecha_seguimiento": "2025-10-09",
+  "fecha_visita": "2025-10-09",
+  "identificacion": 33333335,
+  "nombres_apellidos": "emilio gutierrez",
+  "fecha_nacimiento": "1990-05-15",
+  "trabaja": true,
+  "estudia": false,
+  "sexo_id": 1,
+  "telefono": "3101234567",
+  "direccion": "Calle 123 #45-67",
+  "zona_id": 2,
+  "barrio_id": 2,
+  "vereda_id": 1,
+  "cuidador": "María Ramírez",
+  "sustento": true,
+  "eps_id": 3,
+  "tipo_discapacidad_id": 2,
+  "diagnostico_discapacidad": "Parálisis cerebral leve",
+  "grupo_etnico_id": 1,
+  "victima_id": 2,
+  "vivienda": true,
+  "grado_estudio_id": 3,
+  "cultura_recreacion": false,
+  "dispositivo": "Silla de ruedas",
+  "observaciones": "Paciente con buena evolución y seguimiento mensual"
+}
+
+### Editar paciente
+PUT http://localhost:3000/api/pacientes/2
+Content-Type: application/json
+
+{
+  "estado_vida_id": 1,
+  "fecha_seguimiento": "2025-10-10",
+  "fecha_visita": "2025-10-10",
+  "identificacion": 1111111114,
+  "nombres_apellidos": "Emilio Gutierrez ",
+  "fecha_nacimiento": "1950-05-15",
+  "trabaja": true,
+  "estudia": false,
+  "sexo_id": 1,
+  "telefono": "3101234567",
+  "direccion": "Calle 123 #45-67",
+  "zona_id": 1,
+  "barrio_id": 2,
+  "vereda_id": 1,
+  "cuidador": "María Ramírez",
+  "sustento": true,
+  "eps_id": 1,
+  "tipo_discapacidad_id": 2,
+  "diagnostico_discapacidad": "Parálisis cerebral leve",
+  "grupo_etnico_id": 1,
+  "victima_id": 2,
+  "vivienda": true,
+  "grado_estudio_id": 3,
+  "cultura_recreacion": false,
+  "dispositivo": "Silla de ruedas",
+  "observaciones": "Actualizado con seguimiento"
+}
+
+### Eliminar paciente
+DELETE http://localhost:3000/api/pacientes/2
