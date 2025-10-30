@@ -17,6 +17,7 @@ router.get("/discapacidad", EstadisticaController.PorDiscapacidad);
 router.get("/discapacidad-sexo", EstadisticaController.PorDiscapacidadYSexo);
 router.get("/victima-sexo",  EstadisticaController.PorVictimaYSexo);
 router.get("/victima",  EstadisticaController.PorVictima);
+router.get("/victima-si-no",  EstadisticaController.PorVictimaSiNo);
 router.get("/grado-estudio", EstadisticaController.PorGradoEstudio);
 router.get("/grado-estudio-sexo", EstadisticaController.PorGradoEstudioYSexo);
 router.get("/eps", EstadisticaController.pacientesPorEps);

@@ -32,7 +32,7 @@ export default function HeaderLandingPage() {
           className="text-2xl font-bold text-slate-800 cursor-pointer"
           onClick={() => navigate("/")}
         >
-          App de Pacientes
+          App de Discapacitación
         </h1>
 
         {/* Menú de escritorio */}

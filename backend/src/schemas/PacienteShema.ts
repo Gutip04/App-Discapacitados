@@ -22,6 +22,7 @@ export const pacienteSchema = z.object({
   diagnostico_discapacidad: z.string().min(1, "El diagnóstico de discapacidad es obligatorio"),
   grupo_etnico_id: z.number().int().positive("El grupo étnico es obligatorio"),
   victima_id: z.number().int().positive("El tipo de víctima es obligatorio"),
+  victima: z.boolean(),
   vivienda: z.boolean(),
   grado_estudio_id: z.number().int().positive("El grado de estudio es obligatorio"),
   cultura_recreacion: z.boolean(),
@@ -34,13 +35,18 @@ export const pacienteSchema = z.object({
 
 export const filtroPacienteSchema = z.object({
   page: z.coerce.number().min(1).default(1),
-  limit: z.coerce.number().min(1).max(100).default(10),
+  limit: z.coerce.number().min(1).max(200).default(10),
   nombres_apellidos: z.string().optional(),
   zona_id: z.coerce.number().optional(),
   eps_id: z.coerce.number().optional(),
   barrio_id: z.coerce.number().optional(),
   estado_vida_id: z.coerce.number().optional(),
   tipo_discapacidad_id: z.coerce.number().optional(),
+  victima: z
+  .union([z.string(), z.boolean()])
+  .transform(val => val === "true" || val === true)
+  .optional(),
+
 });
 
 export function validar<T>(schema: z.ZodSchema<T>, data: unknown): { ok: true; data: T } | { ok: false; errores: z.ZodIssue[] } {

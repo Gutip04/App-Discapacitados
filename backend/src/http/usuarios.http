@@ -10,9 +10,20 @@ Content-Type: application/json
 
 {
   "nombre": "julio",
-  "email": "b@gmail.com",
+  "email": "afavb@gmail.com",
   "password": "12345",
   "rol": "usuario" 
+}
+
+### crear usuario
+POST http://192.168.93.19:8003/api/auth/register
+Content-Type: application/json
+
+{
+  "nombre": "julio",
+  "email": "eryty@gmail.com",
+  "password": "12345",
+  "rol": "superAdmin" 
 }
 
 ### login

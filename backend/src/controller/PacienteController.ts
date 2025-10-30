@@ -103,6 +103,7 @@ static async Listar(_req: Request, res: Response){
   try {
     const pacientes = await PacienteModel.obtenerTodos();
     res.json(pacientes);
+
   } catch (error) {
     console.error("Error al obtener pacientes:", error);
     res.status(500).json({ error: "Error al obtener pacientes" });
@@ -131,15 +132,16 @@ static async mostrarFiltrados(req: Request, res: Response){
 
   try {
     const resultado = validar(filtroPacienteSchema, req.query);
+    // console.log(resultado);
     if (!resultado.ok) {
       return res.status(400).json({ error: "Filtros inválidos", detalles: resultado.errores.map(e => e.message) });
     }
 
     const filtros = resultado.data;
+       
+
     // console.log("✅ Filtros validados:", filtros);
     // console.log("Filtros recibidos:", filtros);
-    
-
     const pacientes = await PacienteModel.obtenerFiltrados(filtros);
     const total = await PacienteModel.contarFiltrados(filtros)
 

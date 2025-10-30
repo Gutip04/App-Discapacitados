@@ -6,13 +6,13 @@ GET http://localhost:3000/api/pacientes
 # Authorization: Bearer {{tokenAdmin}}
 
 ### Obtener paciente por identificacion
-GET http://localhost:3000/api/pacientes/1234567890
+GET http://localhost:3000/api/pacientes/333333358
 
 ### Obtener paciente por nombreyApellido
 GET http://localhost:3000/api/pacientes/filtrados?nombres_apellidos=emi
 
-### pacientes filtrados nombre
-GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&nombres_apellidos=emilio
+### pacientes filtrados victima
+GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&victima=false
 
 ### pacientes filtrados 
 GET http://localhost:3000/api/pacientes/filtrados?page=1&limit=10&estado_vida_id=2
@@ -32,7 +32,7 @@ Content-Type: application/json
   "estado_vida_id": 1,
   "fecha_seguimiento": "2025-10-09",
   "fecha_visita": "2025-10-09",
-  "identificacion": 33333335,
+  "identificacion": 333333358,
   "nombres_apellidos": "emilio gutierrez",
   "fecha_nacimiento": "1990-05-15",
   "trabaja": true,
@@ -50,6 +50,7 @@ Content-Type: application/json
   "diagnostico_discapacidad": "Parálisis cerebral leve",
   "grupo_etnico_id": 1,
   "victima_id": 2,
+  "victima": true,
   "vivienda": true,
   "grado_estudio_id": 3,
   "cultura_recreacion": false,

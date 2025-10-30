@@ -31,7 +31,7 @@ const { data: discapacidades, loading:loadingDiscapacidades, error:errorDiscapac
 
 const { data: etnico, loading:loadingEtnico, error:errorEtnico } = useTabla<Tabla>(TablaService.TodosGrupoEtnico)
 
-const { data: victima, loading:loadingVictima, error:errorVictima } = useTabla<Tabla>(TablaService.Todosvictimas)
+// const { data: victima, loading:loadingVictima, error:errorVictima } = useTabla<Tabla>(TablaService.Todosvictimas)
 
 const { data: estudio, loading:loadingEstudio, error:errorEstudio } = useTabla<Tabla>(TablaService.TodosgradoEstudio)
 
@@ -92,6 +92,7 @@ const handleSubmit = (e: React.FormEvent) => {
     diagnostico_discapacidad: paciente.diagnostico_discapacidad || "No aplica",
     grupo_etnico_id: paciente.grupo_etnico_id ?? 1,
     victima_id: paciente.victima_id ?? 1,
+    victima: !!paciente.victima, 
     vivienda: !!paciente.vivienda,
     grado_estudio_id: paciente.grado_estudio_id ?? 1,
     cultura_recreacion: !!paciente.cultura_recreacion,
@@ -119,6 +120,30 @@ const handleSubmit = (e: React.FormEvent) => {
         }, 5000);
     });
 };
+
+
+const manejarCambioZona = (zonaSeleccionada: number) => {
+  setPaciente((prev) => {
+    const actualizado: Partial<NuevoPaciente> = {
+      ...prev,
+      zona_id: zonaSeleccionada,
+    };
+
+    // Limpiar campos según la zona
+    if (zonaSeleccionada === 1) {
+      actualizado.vereda_id = undefined;
+    } else if (zonaSeleccionada === 2) {
+      actualizado.barrio_id = undefined;
+    } else {
+      actualizado.barrio_id = undefined;
+      actualizado.vereda_id = undefined;
+    }
+
+    return actualizado;
+  });
+};
+
+
 
 return (
 
@@ -272,14 +297,14 @@ return (
         error={errorEtnico ?? ""}
       />
 
-      <SelectBuscador
+      {/* <SelectBuscador
         label="Víctima"
         options={victima.map((v) => ({ value: v.id, label: v.nombre }))}
         value={paciente.victima_id}
         onChange={(val) => setPaciente((prev) => ({ ...prev, victima_id: val }))}
         loading={loadingVictima}
         error={errorVictima ?? ""}
-      />
+      /> */}
 
       <label className="block">
   Estado de Vida
@@ -294,6 +319,10 @@ return (
         <option value={1}>Vivo</option>
         <option value={2}>Fallecido</option>
     </select>
+    </label>
+
+    <label className="flex items-center gap-2">
+        <input type="checkbox" name="victima" onChange={handleChange} /> ¿Es Victima?
     </label>
     </div>
   </div>
@@ -338,49 +367,62 @@ return (
       <span className="text-gray-400">(Poner “No aplica” en Barrio o Vereda)</span>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <SelectBuscador
-        label="Barrio"
-        options={barrios.map((b) => ({ value: b.id, label: b.nombre }))}
-        value={paciente.barrio_id}
-        onChange={(val) => setPaciente((prev) => ({ ...prev, barrio_id: val }))}
-        loading={loadingBarrios}
-        error={errorBarrios ?? ""}
-      />
+    
 
-      <SelectBuscador
-        label="Vereda"
-        options={veredas.map((v) => ({ value: v.id, label: v.nombre }))}
-        value={paciente.vereda_id}
-        onChange={(val) => setPaciente((prev) => ({ ...prev, vereda_id: val }))}
-        loading={loadingVeredas}
-        error={errorVeredas ?? ""}
-      />
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  
+  {/* Select Zona */}
+  <label className="block">
+    Zona
+    <select
+      name="zona_id"
+      value={paciente.zona_id}
+      onChange={(e) => manejarCambioZona(Number(e.target.value))}
+      className="border p-2 w-full rounded mt-1"
+      required
+      >
+      <option value="">Seleccione zona</option>
+      <option value={1}>Urbano</option>
+      <option value={2}>Rural</option>
+    </select>
+  </label>
 
-      <SelectBuscador
-        label="EPS"
-        options={eps.map((e) => ({ value: e.id, label: e.nombre }))}
-        value={paciente.eps_id}
-        onChange={(val) => setPaciente((prev) => ({ ...prev, eps_id: val }))}
-        loading={loadingEps}
-        error={errorEps ?? ""}
-      />
+  {/* Mostrar Select Barrio solo si zona es Urbana */}
+  {paciente.zona_id === 1 && (
+    <SelectBuscador
+      label="Barrio"
+      options={barrios.map((b) => ({ value: b.id, label: b.nombre }))}
+      value={paciente.barrio_id}
+      onChange={(val) => setPaciente((prev) => ({ ...prev, barrio_id: val }))}
+      loading={loadingBarrios}
+      error={errorBarrios ?? ""}
+    />
+  )}
 
-      <label className="block">
-        Zona
-        <select
-          name="zona_id"
-          value={paciente.zona_id}
-          onChange={(e) => setPaciente((prev) => ({ ...prev, zona_id: Number(e.target.value) }))}
-          className="border p-2 w-full rounded mt-1"
-          required
-        >
-          <option value="">Seleccione zona</option>
-          <option value={1}>Urbano</option>
-          <option value={2}>Rural</option>
-        </select>
-      </label>
-    </div>
+  {/* Mostrar Select Vereda solo si zona es Rural */}
+  {paciente.zona_id === 2 && (
+    <SelectBuscador
+      label="Vereda"
+      options={veredas.map((v) => ({ value: v.id, label: v.nombre }))}
+      value={paciente.vereda_id}
+      onChange={(val) => setPaciente((prev) => ({ ...prev, vereda_id: val }))}
+      loading={loadingVeredas}
+      error={errorVeredas ?? ""}
+    />
+  )}
+
+  {/* Select EPS (siempre visible) */}
+  <SelectBuscador
+    label="EPS"
+    options={eps.map((e) => ({ value: e.id, label: e.nombre }))}
+    value={paciente.eps_id}
+    onChange={(val) => setPaciente((prev) => ({ ...prev, eps_id: val }))}
+    loading={loadingEps}
+    error={errorEps ?? ""}
+  />
+
+</div>
+
   </div>
 
   {/* ===== Otros ===== */}

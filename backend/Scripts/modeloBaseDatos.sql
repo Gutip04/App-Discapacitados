@@ -122,3 +122,7 @@ ALTER TABLE victima ADD UNIQUE(nombre);
 ALTER TABLE barrio ADD UNIQUE(nombre);
 ALTER TABLE vereda ADD UNIQUE(nombre);
 ALTER TABLE estado_vida ADD UNIQUE(nombre);
+
+### Añadir columna victima
+ALTER TABLE paciente 
+ADD COLUMN victima BOOLEAN DEFAULT 0 AFTER victima_id;

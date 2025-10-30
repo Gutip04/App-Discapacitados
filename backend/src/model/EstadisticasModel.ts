@@ -12,6 +12,22 @@ static async pacientesPorSexo() {
     return rows;
   }
 
+static async pacientesPorVictimaSiNo() {
+  const [rows] = await db.query(`
+    SELECT 
+      CASE 
+        WHEN victima = TRUE THEN 'Sí es víctima'
+        WHEN victima = FALSE THEN 'No es víctima'
+        ELSE 'No especificado'
+      END AS victima,
+      COUNT(*) AS total
+    FROM paciente
+    GROUP BY victima
+  `);
+  return rows;
+}
+
+
 static async pacientesPorZona() {
     const [rows] = await db.query(`
       SELECT z.nombre AS zona, COUNT(p.id) AS total

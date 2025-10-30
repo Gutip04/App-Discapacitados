@@ -13,6 +13,15 @@ export class EstadisticaController {
     }
   }
 
+  static async PorVictimaSiNo(_req:Request, res:Response) {
+    try {
+      const data = await EstadisticaModel.pacientesPorVictimaSiNo();
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: "Error al obtener pacientes por Victima Si/No" });
+    }
+  }
+
   static async PorZona(_req:Request, res:Response) {
     try {
       const data = await EstadisticaModel.pacientesPorZona();

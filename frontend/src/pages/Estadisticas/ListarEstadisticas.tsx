@@ -5,7 +5,8 @@ import EstadoVida from "./EstadoVida";
 import GradoEstudio from "./GradoEstudio";
 import GrupoEtnico from "./GrupoEtnico";
 import Sexo from "./Sexo";
-import Victimas from "./victima";
+// import Victimas from "./victima";
+import VictimaSiNO from "./Victima-SI-No";
 import Zona from "./Zona";
 
 export default function Estadisticas() {
@@ -31,7 +32,7 @@ export default function Estadisticas() {
             <Discapacidad />
           </div>
           <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all p-4 flex items-center justify-center">
-            <Victimas />
+            <VictimaSiNO />
           </div>
           <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all p-4">
             <GradoEstudio />

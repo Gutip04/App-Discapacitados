@@ -24,7 +24,8 @@ SELECT
   ge.nombre AS grupo_etnico_nombre,
   ev.nombre AS estado_vida_nombre,
   g.nombre AS grado_estudio_nombre,
-  s.nombre As sexo_nombre
+  s.nombre AS sexo_nombre
+
 FROM paciente p
 LEFT JOIN zona z ON p.zona_id = z.id
 LEFT JOIN barrio b ON p.barrio_id = b.id
@@ -37,3 +38,4 @@ LEFT JOIN estado_vida ev ON p.estado_vida_id = ev.id
 LEFT JOIN grado_estudio g ON p.grado_estudio_id = g.id
 LEFT JOIN sexo s ON p.sexo_id = s.id;
 
+;

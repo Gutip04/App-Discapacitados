@@ -57,7 +57,7 @@ export default function ListarBarrios() {
   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
     <h1 className="text-3xl font-extrabold uppercase text-gray-800">Barrios</h1>
 
-    <BotonFormulario to="/veredas/crear" texto="Agregar" color="green" px={4} py={2} />
+    <BotonFormulario to="/barrios/crear" texto="Agregar" color="green" px={4} py={2} />
   </div>
 
   {/* Mensaje */}

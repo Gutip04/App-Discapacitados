@@ -26,8 +26,10 @@ const buscarPacientes = useCallback(async () =>{
         if (!filtrosLimpios.eps_id) delete filtrosLimpios.eps_id;
         if (!filtrosLimpios.zona_id) delete filtrosLimpios.zona_id;
 
+        
         const response= await PacientesService.filtrar(filtrosLimpios)
         const data = response.data as ApiResponse
+        
         setPacientes(data.resultados)
         setTotal(data.total)
 

@@ -7,6 +7,7 @@ export const EstadisticasService = {
     EstadoVida: () => api.get("/estadisticas/estado-vida"),
     Discapacidad: () => api.get("estadisticas/discapacidad"),
     Victima: () => api.get("estadisticas/victima"), 
+    VictimaSiNo: () => api.get("estadisticas/victima-si-no"), 
     GradoEstudio: () => api.get("estadisticas/grado-estudio"), 
     Eps: () => api.get("estadisticas/eps"),
     GruposEtnicos: () => api.get("estadisticas/grupoetnico"),

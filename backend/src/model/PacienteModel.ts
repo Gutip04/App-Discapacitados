@@ -107,6 +107,11 @@ function construirCondiciones(filtros: FiltrosPacienteSQL): {where: string; valo
     condiciones.push("tipo_discapacidad_id = ?");
     valores.push(filtros.tipo_discapacidad_id);
   }
+  if (filtros.victima !== undefined) {
+    condiciones.push("victima = ?");
+    valores.push(filtros.victima ? 1 : 0); // Convierte true/false a 1/0
+  }
+  
 
   const where = condiciones.length > 0 ? `WHERE ${condiciones.join(" AND ")}` : "";
   return { where, valores}

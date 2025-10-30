@@ -84,7 +84,7 @@ export default function UnicoPaciente() {
         <p><span className="font-semibold">EPS:</span> {paciente.eps_nombre}</p>
         <p><span className="font-semibold">Discapacidad:</span> {paciente.tipo_discapacidad_nombre}</p>
         <p><span className="font-semibold">Diagnóstico:</span> {paciente.diagnostico_discapacidad}</p>
-        <p><span className="font-semibold">Víctima:</span> {paciente.victima_nombre}</p>
+        <p><span className="font-semibold">Víctima:</span> {paciente.victima ? "Sí" : "No"}</p>
         <p><span className="font-semibold">Grupo étnico:</span> {paciente.grupo_etnico_nombre}</p>
         <p><span className="font-semibold">Ciclo de Vida:</span> {paciente.ciclo_vida_nombre}</p>
       </div>

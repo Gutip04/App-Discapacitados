@@ -23,6 +23,7 @@ export interface Paciente {
   diagnostico_discapacidad: string;
   grupo_etnico_id: number;
   victima_id: number;
+  victima:boolean
   vivienda: boolean;
   grado_estudio_id: number;
   cultura_recreacion: boolean;
@@ -53,6 +54,7 @@ export type  PacientesFiltrados = {
     zona_id?: number | undefined
     estado_vida_id?: number | undefined
     tipo_discapacidad_id?: number | undefined
+    victima?: boolean | undefined
 }
 
 export type FiltrosPacienteSQL = Omit<PacientesFiltrados, "page" | "limit">;

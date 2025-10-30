@@ -21,6 +21,7 @@ export interface Paciente {
   diagnostico_discapacidad: string;
   grupo_etnico_id: number;
   victima_id: number;
+  victima: boolean;
   vivienda: boolean;
   grado_estudio_id: number;
   cultura_recreacion: boolean;
@@ -53,4 +54,5 @@ export interface FiltrosPaciente {
   zona_id?: number;
   estado_vida_id?: number;
   tipo_discapacidad_id?: number;
+  victima?:boolean
 }

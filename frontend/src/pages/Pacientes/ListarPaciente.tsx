@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import BotonFormulario from "../../components/ui/BottonFormulario";
 import { usePacientes } from "../../hooks/UsePacientes";
@@ -10,24 +10,36 @@ import { TablaService } from "../../services/TablasService";
 import { useAuth } from "../../hooks/UseAuth";
 
 
+
 export default function ListarPacientes(){
-    const {
-        pacientes, 
-        total, 
-        loading, 
-        error, 
-        filtros, 
-        eliminarPaciente,
-        setFiltros
-    } = usePacientes({ nombres_apellidos:"", page: 1, limit: 5  });
-    
+    //  Leer los filtros guardados al cargar
+  const filtrosGuardados = localStorage.getItem("filtrosPacientes");
+  const filtrosIniciales = filtrosGuardados
+    ? JSON.parse(filtrosGuardados)
+    : { nombres_apellidos: "", page: 1, limit: 50 };
+
+  const {
+    pacientes,
+    total,
+    loading,
+    error,
+    filtros,
+    eliminarPaciente,
+    setFiltros
+  } = usePacientes(filtrosIniciales);
+
+    // Guardar filtros automáticamente cuando cambien
+    useEffect(() => {
+      localStorage.setItem("filtrosPacientes", JSON.stringify(filtros));
+    }, [filtros]);
+
     // Permite navegar entre paginas 
     const navigate = useNavigate();
     
     const [mensaje, setMensaje] = useState("");
     const [tipoMensaje, setTipoMensaje] = useState<"success" | "error" | "">("");
     const [pacienteAEliminar, setPacienteAEliminar] = useState<Paciente | null>(null);
-    const { eps, loading: loadingEps, error: errorEps } = UseEps({ nombre: "", page: 1, limit: 100 });
+    const { eps, loading: loadingEps, error: errorEps } = UseEps({ nombre: "", page: 1, limit: 30 });
     const { data: discapacidades, loading: loadingDiscapacidades, error: errorDiscapacidades } = useTabla<Discapacidad>(TablaService.TodosDiscapacidad);
     const { usuario } = useAuth();
 
@@ -60,6 +72,24 @@ export default function ListarPacientes(){
       const numero = valor ? Number(valor) : undefined;
     setFiltros({ ...filtros, estado_vida_id: numero, page: 1 });
     };
+    
+    // Cambiar busqueda por victima
+const cambiarBusquedaVictima = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const valor = e.target.value;
+
+  let booleano: boolean | undefined = undefined;
+
+  
+  if (valor === "true") booleano = true;
+  else if (valor === "false") booleano = false;
+
+  // console.log(booleano);
+  // console.log(typeof booleano);
+  
+  setFiltros({ ...filtros, victima: booleano, page: 1 });
+};
+
+
     // Cambiar busqueda por tipo de discapacidad
     const cambiarBusquedaTipoDiscapacidad = (e: React.ChangeEvent<HTMLSelectElement>) => {      
       const valor = e.target.value;
@@ -90,13 +120,25 @@ export default function ListarPacientes(){
     }
     };
 
-    // console.log(pacientes)
+    
     return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
         <h1 className="text-3xl font-extrabold uppercase text-gray-800">Pacientes</h1>
-
-        <BotonFormulario to="/pacientes/crear" texto="Agregar" color="green" px={4} py={2} />
+        <div className="flex gap-3">
+          <BotonFormulario to="/pacientes/crear" texto="Agregar" color="green" px={4} py={2} />
+          <button
+              onClick={() => {
+                setFiltros({ nombres_apellidos: "", page: 1, limit: 50 });
+                localStorage.removeItem("filtrosPacientes");
+              }}
+              className="px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 font-bold text-white"
+            >
+              Limpiar filtros
+          </button>
+        </div>
+      
+      
       </div>
 
   {/* Mensaje */}
@@ -174,6 +216,7 @@ export default function ListarPacientes(){
     <option value="2">Rural</option>
     {/* 🟡 También puedes traer las zonas desde la API */}
   </select>
+  
   {/* Filtro por estado de vida */}
   <select
     value={filtros.estado_vida_id || ""}
@@ -185,6 +228,21 @@ export default function ListarPacientes(){
     <option value="2">Fallecido</option>
     {/* 🟡 También puedes traer las zonas desde la API */}
   </select>
+  
+  {/* Filtro por victima */}
+  <select
+    value={filtros.victima === undefined ? "" : filtros.victima ? "true" : "false"}
+    onChange={cambiarBusquedaVictima}
+    className="w-full sm:w-1/3 px-4 py-2 border rounded-lg shadow-sm"
+  >
+    <option value="">Estado de la Victima</option>
+    <option value="true">ES Victima</option>
+    <option value="false">No es Victima</option>
+    {/* 🟡 También puedes traer las zonas desde la API */}
+  </select>
+
+  
+
 </div>
 
   {loading && <p className="text-gray-500">Cargando Pacientes...</p>}
@@ -289,6 +347,8 @@ export default function ListarPacientes(){
       <option value={20}>20</option>
       <option value={35}>35</option>
       <option value={50}>50</option>
+      <option value={100}>100</option>
+      <option value={200}>200</option>
     </select>
   </div>
 

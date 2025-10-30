@@ -15,7 +15,7 @@ router.post("/logout", AutController.logout);
 router.get("/check", AutController.verificarSesion);
 
 // A partir de aquí, solo admin o superadmin
-router.use(authMiddleware.adminOSuperAdmin);
+router.use(authMiddleware.adminOSuperAdmin); 
 
 router.post("/register", UsuarioController.register);
 router.get("/listar", UsuarioController.listar);
