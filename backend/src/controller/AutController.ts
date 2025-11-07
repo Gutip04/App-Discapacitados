@@ -31,12 +31,12 @@ static async login(req:Request, res:Response){
         const token = jwt.sign(
             { id: usuario.id, email: usuario.email, rol: usuario.rol },
             JWT_SECRET,
-            { expiresIn: "1h" } // ✅ nombre correcto: expiresIn
+            { expiresIn: "1h" } //  nombre correcto: expiresIn
         );
 
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false, // Cambiar a true si usas HTTPS
+            secure:  process.env.NODE_ENV === "production", // Cambiar a true si se usa HTTPS
             sameSite: "lax",
             maxAge: 60*60*1000 // 1 hora
         })
