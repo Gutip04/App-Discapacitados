@@ -39,6 +39,7 @@
     | `npm run dev`   | Ejecuta el servidor en modo desarrollo (usa tsx watch)  |
     | `npm run build` | Compila TypeScript en la carpeta `dist/`                |
     | `npm run start` | Ejecuta la versión compilada del servidor en producción |
+    | `npm run seeder`| Ejecuta una funcion que cumple con ingresar el admin    |
 
 
 ## Estructura del Proyecto 
@@ -54,6 +55,7 @@
     │   ├── database/           # Configuración de conexión a MySQL
     │   ├── middlewares/        # Middlewares (auth, validaciones, etc.)
     │   ├── services/           # Lógica reutilizable (como EstadisticasService)
+    │   ├── seeder/             # Funcion para ingresar un superAdmin 
     │   ├── index.ts            # Punto de entrada de la app
     │   └── app.ts              # Configuración de Express
     │
